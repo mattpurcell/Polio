@@ -10,3 +10,9 @@ d_long = read.csv('incidence-long.csv')
 c = read.csv('coverage.csv')
 c_long = gather(c, year, coverage, X2016:X1980)
 c_long$year = as.numeric(substr(c_long$year, 2, 5))
+
+incidence = d_long$incidence
+HDI = h_long$HDI
+coverage = c_long$coverage/100
+
+logreg = glm(incidence ~ HDI + coverage, family = binomial(link = 'logit'))
