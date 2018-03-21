@@ -18,6 +18,11 @@ merged_data = merge(merged_data, d_long[,c('Country', 'year', 'incidence')])
 merged_data$coverage = merged_data$coverage/100
 attach(merged_data)
 
-logreg = glm(incidence ~ HDI + coverage, family = binomial(link = 'logit'))
+incidence = merged_data$incidence
+HDI = merged_data$HDI
+coverage = merged_data$coverage
 
+logreg = glm(incidence!=0 ~ HDI + coverage, family = binomial(link = 'logit'))
+
+summary(logreg)
 detach(merged_data)
